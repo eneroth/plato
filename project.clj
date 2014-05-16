@@ -9,14 +9,13 @@
   :cljsbuild {
               :builds [{:id "dev"
                         :source-paths ["src-cljs"]
-                        :compiler {:output-to "resources/public/js/cljs.js"
+                        :compiler {:output-to "resources/public/js/plato.js"
                                    :optimizations :none
                                    :output-dir "resources/public/js/output"
                                    :pretty-print true
-                                   :source-map "resources/public/js/output/cljs.js.map"}}
+                                   :source-map "resources/public/js/output/plato.js.map"}}
                        {:id "prod"
                         :source-paths ["src-cljs"]
-                        :compiler {:output-to "resources/public/js/cljs.js"
+                        :compiler {:output-to "resources/public/js/plato.js"
                                    :optimizations :advanced
-                                   :externs ["resources/public/js/react-0.8.0.min.js"]
                                    :pretty-print false}}]})
