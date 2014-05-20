@@ -24,7 +24,7 @@ For example, given the ```base-key``` (base-keys are explained below) "myproject
 Due to limitations in the local storage API, everything except hash-maps is stored as strings in the value field, including vectors and so on. Hash-maps are stored in the formatting of the keys, as shown above.
 
 ## Usage
-Add the following to your project.clj:
+Add the following to your project.clj dependencies:
 ```clojure
 [plato "0.1.5"]
 ```
