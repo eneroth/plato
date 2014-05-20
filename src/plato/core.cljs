@@ -4,7 +4,6 @@
 
 
 
-
 ;; Diffing algorithm.
 ;; Please improve and/or benchmark!
 ;; ----------------------------------------------------------------
@@ -207,4 +206,5 @@
                     (put-many! base-key added))
                   (when-not (empty? removed)
                     (when log-updates (js/console.log "Removing in localStorage" (removed-to-strings removed)))
-                    (remove-many! base-key removed)))))))
+                    (remove-many! base-key removed)))))
+   an-atom))
