@@ -106,7 +106,8 @@ Takes the first value from each collection, then applies the function f to them,
 Updates a particular key stored in local storage. For example, 
 
 ```clojure 
-(put-key! "com.example.my-atom" [:foo :bar] "Hello World!")``` 
+(put-key! "com.example.my-atom" [:foo :bar] "Hello World!")
+``` 
 
 will update the key ```"com.test:foo:bar"``` to have value ```"Hello world"``` in local storage.
 
@@ -118,7 +119,8 @@ will update the key ```"com.test:foo:bar"``` to have value ```"Hello world"``` i
 Stores a collection of path vectors in local storage. The path vectors should be on format:
 
 ```clojure
-[[:a :b :c] 1]```
+[[:a :b :c] 1]
+```
   
 For example,
 
@@ -127,7 +129,8 @@ For example,
                    [[:b :c] 2]
                    [[:b :d] 3]])
 
-(put-all! "com.example.my-atom" path-vectors)```
+(put-all! "com.example.my-atom" path-vectors)
+```
 
 **put-state!**
 ```clojure
@@ -136,7 +139,8 @@ For example,
 Takes an atom state and stores it in local storage. For example,
 
 ```clojure
-(put-state! "com.example.my-atom" @my-atom)```
+(put-state! "com.example.my-atom" @my-atom)
+```
 
 **put-atom!**
 ```clojure
@@ -145,7 +149,8 @@ Takes an atom state and stores it in local storage. For example,
 Same as ```put-state!```, but it does the ```deref for you```. For example,
 
 ```clojure
-(put-state! "com.example.my-atom" my-atom)```
+(put-state! "com.example.my-atom" my-atom)
+```
 
 ### Getting
 
@@ -157,7 +162,8 @@ Same as ```put-state!```, but it does the ```deref for you```. For example,
 Get the value associated with the specified base-key from local storage. For example,
 
 ```clojure
-(get-key "com.example.my-atom" [:a :b :c])```
+(get-key "com.example.my-atom" [:a :b :c])
+```
 
 **get-all**
 ```clojure
@@ -178,7 +184,8 @@ Get all localStorage entries beginning with the given base-key. For example,
 Get stored state from local storage and reset the given atom with it. For example,
 
 ```clojure
-(get-atom! "com.example.my-atom" my-atom)```
+(get-atom! "com.example.my-atom" my-atom)
+```
 
 ### Removing
 **remove-key!**
@@ -198,7 +205,8 @@ Removes a key and corresponding value from local storage. For example,
 Remove all keys that belonging to the given base-key from local storage. For example,
 ```clojure
 (remove-many! "com.example.my-atom" [[:a :b :c]
-                                     [:d :e]])```
+                                     [:d :e]])
+```
 
 ### Maintaing state in sync
 **keep-updated!**
@@ -210,7 +218,8 @@ Updates local storage with all changes made to an atom. Call with ```true``` as 
 
 ```clojure
 (keep-updated! "com.example.my-atom" my-atom)
-(keep-updated! "com.example.my-atom" my-atom true) ;; Console logging turned on```
+(keep-updated! "com.example.my-atom" my-atom true) ;; Console logging turned on
+```
 
 
 
