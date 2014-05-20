@@ -146,7 +146,9 @@ Same as ```put-state!```, but it does the ```deref for you```. For example,
 ```clojure
 (get-key base-key path-vector)
 ```
+
 Get the value associated with the specified base-key from local storage. For example,
+
 ```clojure
 (get-key "com.example.my-atom" [:a :b :c])```
 
@@ -154,7 +156,9 @@ Get the value associated with the specified base-key from local storage. For exa
 ```clojure
 (get-all base-key)
 ```
+
 Get all localStorage entries beginning with the given base-key. For example,
+
 ```clojure
 (get-key "com.example.my-atom")```
 
@@ -163,7 +167,9 @@ Get all localStorage entries beginning with the given base-key. For example,
 ```clojure
 (get-atom! base-key an-atom)
 ```
+
 Get stored state from local storage and reset the given atom with it. For example,
+
 ```clojure
 (get-atom! "com.example.my-atom" my-atom)```
 
@@ -172,7 +178,9 @@ Get stored state from local storage and reset the given atom with it. For exampl
 ```clojure
 (remove-key! base-key path-vector)
 ```
+
 Removes a key and corresponding value from local storage. For example,
+
 ```clojure
 (remove-key! "com.example.my-atom" [:a :b :c])```
 
@@ -190,7 +198,9 @@ Remove all keys that belonging to the given base-key from local storage. For exa
 ```clojure
 (keep-updated! base-key an-atom log-update)
 ```
-Updates local storage with all changes made to an atom. Call with ```true`` as third arg to switch on logging. For example,
+
+Updates local storage with all changes made to an atom. Call with ```true``` as third arg to switch on logging. For example,
+
 ```clojure
 (keep-updated! "com.example.my-atom" my-atom)
 (keep-updated! "com.example.my-atom" my-atom true) ;; Console logging turned on```
