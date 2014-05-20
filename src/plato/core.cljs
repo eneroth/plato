@@ -33,7 +33,7 @@
          (apply merge new-vals)]))))
 
 
-;; Key mutation
+;; Key formatting
 ;; ----------------------------------------------------------------
 
 (defn- split-key
@@ -91,7 +91,7 @@
 ;; ----------------------------------------------------------------
 
 
-;; Put-functions
+;; Put functions
 ;; ----------------------------------------------------------------
 
 (defn put-key
@@ -120,8 +120,16 @@
   (put-all base-key (pathify [] state)))
 
 
-;; Get-functions
+;; Get functions
 ;; ----------------------------------------------------------------
+
+(defn- get-by-string [path-string]
+  "Get the value associated with the given path-string."
+  (aget js/localStorage path-string))
+
+(defn get-by-path [base-key path-vector]
+  "Get the value associated with the specified base-key"
+  (get-by-string (to-string base-key path-vector)))
 
 (defn- filter-our-keys
   "From a list of all keys, return a list with the keys that
@@ -129,10 +137,6 @@
   [base-key all-keys]
   (let [base-pattern (re-pattern (str "^" base-key))]
     (filter #(re-find base-pattern %) all-keys)))
-
-(defn- get-by-string [path-string]
-  "Get the value associated with the given path-string."
-  (aget js/localStorage path-string))
 
 (defn get-all
   "Get all localStorage entries beginning with the given base-key."
@@ -142,12 +146,8 @@
         all-data (reduce #(assoc %1 %2 (get-by-string %2)) {} our-keys)]
     (unkeyify base-key all-data)))
 
-(defn get-key [base-key path-vector]
-  "Get the value associated with the specified base-key"
-  (get-by-string (to-string base-key path-vector)))
 
-
-;; Remove-functions
+;; Remove functions
 ;; ----------------------------------------------------------------
 (defn remove-from-ls
   "Removes a value from local storage."

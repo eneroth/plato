@@ -18,4 +18,5 @@
                         :source-paths ["src-cljs"]
                         :compiler {:output-to "resources/public/js/plato.js"
                                    :optimizations :advanced
-                                   :pretty-print false}}]})
+                                   :pretty-print false}}]}
+  :html5-docs-ns-includes #"^plato*")
