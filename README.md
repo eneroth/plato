@@ -26,7 +26,7 @@ Due to limitations in the local storage API, everything except hash-maps is stor
 ## Usage
 Add the following to your project.clj dependencies:
 ```clojure
-[plato "0.1.6"]
+[plato "0.1.7"]
 ```
 
 Almost all Plato functions take a ```base-key``` as the first argument. The reason for this is to make sure that there are no collisions between keys stored in local storage. Make sure you use a different base-key for every atom you intend to persist.
