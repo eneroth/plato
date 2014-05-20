@@ -43,7 +43,7 @@ If you're only using a single atom, and wish to omit the base-key, you can use `
 ```
 
 ### Storing and restoring state
-The two main functions of Plato is ```keep-updated!``` and ```get-atom!```. They are used to store and restore state, respectively. There are also a number of functions that can be used to store data more manually. In particular, you may need to run ```put-atom!``` once before running ```keep-updated!```, since ```keep-updated!``` only will persist the *changes* made to the atom.
+The two main functions of Plato is ```keep-updated!``` and ```get-atom!```. They are used to store and restore state, respectively. There are also a number of functions that can be used to store data more manually. In particular, you *may* need to run ```put-atom!``` once before running ```keep-updated!```, since ```keep-updated!``` only will persist the *changes* made to the atom.
 
 #### Storing state
 
@@ -98,7 +98,7 @@ For example,
 
 **put-key!**
 ```clojure
-(put-key! base-key path-vectors)
+(put-key! base-key path-vector value)
 ```
 Updates a particular key stored in local storage. For example, 
 
