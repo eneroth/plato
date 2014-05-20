@@ -10,7 +10,7 @@ This is why we should try to keep the state separate from the rest of the code.
 ## Purpose
 The purpose of Plato is to store and retrieve the state of an atom to (and from) Local Storage, automatically or, if so desired, manually.
 
-This library grew out of the need to keep storage of application state separate from the application logic. I noticed that I interspersed my application logic with a lot of storage and retrieval from local storage, a task that is in actuality orthogonal to the reasoning happening in the application logic functions. Therefore, those functions were extracted and put in a separate library.
+This library grew out of the need to keep storage of application state separate from the application logic. I noticed that I interspersed my application logic with a lot of storage related function calls. Storage and persistence is arguably orthogonal to application logic, and therefore those functions were extracted and put in a separate library.
 
 Plato parses arbitrarily nested hash-maps in atoms and constructs local storage keys from their relative paths.
 
@@ -21,10 +21,10 @@ For example, given the ```base-key``` (base-keys are explained below) "myproject
   Key: myproject:b:d, value: 3
 ```
 
-Due to limitations in the local storage API, everything except hash-maps are stored as strings. Hash-maps are stored in the formatting of the keys, as shown above.
+Due to limitations in the local storage API, everything except hash-maps is stored as strings. Hash-maps are stored in the formatting of the keys, as shown above.
 
 ## Usage
-Almost all Plato functions take a ```base-key``` as the first argument. The reason for this is to make sure that there are no collisions between  keys stored in local storage. Make sure you use a different base-key for every atom you intend to persist.
+Almost all Plato functions take a ```base-key``` as the first argument. The reason for this is to make sure that there are no collisions between keys stored in local storage. Make sure you use a different base-key for every atom you intend to persist.
 
 If you're only using a single atom, and wish to omit the base-key, you can use ```partial```, like this:
 
