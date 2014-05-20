@@ -143,7 +143,7 @@ Takes an atom state and stores it in local storage. For example,
 ```clojure
 (put-state! base-key state)
 ```
-Same as ```put-state!```, but it does the ```deref for you```. For example,
+Same as ```put-state!```, but it does the ```deref``` for you. For example,
 
 ```clojure
 (put-state! "com.example.my-atom" my-atom)
