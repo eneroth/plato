@@ -21,9 +21,14 @@ For example, given the ```base-key``` (base-keys are explained below) "myproject
   Key: "myproject:b:d", value: "3"
 ```
 
-Due to limitations in the local storage API, everything except hash-maps is stored as strings. Hash-maps are stored in the formatting of the keys, as shown above.
+Due to limitations in the local storage API, everything except hash-maps is stored as strings in the value field, including vectors and so on. Hash-maps are stored in the formatting of the keys, as shown above.
 
 ## Usage
+Add the following to your project.clj:
+```clojure
+[plato "0.1.5"]
+```
+
 Almost all Plato functions take a ```base-key``` as the first argument. The reason for this is to make sure that there are no collisions between keys stored in local storage. Make sure you use a different base-key for every atom you intend to persist.
 
 If you're only using a single atom, and wish to omit the base-key, you can use ```partial```, like this:
