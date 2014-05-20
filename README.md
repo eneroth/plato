@@ -227,5 +227,4 @@ Takes a map representing an old state, and a map representing a new state and re
 
 Copyright © 2014 Henrik Eneroth
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+Distributed under the Eclipse Public License.
