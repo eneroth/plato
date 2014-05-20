@@ -3,16 +3,17 @@
             [cljs.reader :refer [read-string]]))
 
 
+
 ;; Diffing algorithm.
 ;; Please improve and/or benchmark!
 ;; ----------------------------------------------------------------
 
-(defn map-two [f col1 col2]
+(defn- map-two [f col1 col2]
   "Takes the first value from each collection, then applies the 
   function f to them, with col1 being the first argument to the function."
   (map (fn [x] (apply f x)) (partition 2 (interleave col1 col2))))
 
-(defn assoc-nil [x y]
+(defn- assoc-nil [x y]
   "Associates x with y, given that y is not nil."
   (when-not (nil? y) (assoc {} x y)))
 
@@ -33,7 +34,7 @@
          (apply merge new-vals)]))))
 
 
-;; Key formatting
+;; Key mutation
 ;; ----------------------------------------------------------------
 
 (defn- split-key
@@ -48,7 +49,7 @@
   [base-key nested-key]
   (string/replace-first nested-key (str base-key ":") ""))
 
-(defn pathify
+(defn- pathify
   "Takes an arbitrarily nested map and returns a list
   vectors, where each vectors is a tuple of a path
   describing, as well as a value.
@@ -65,7 +66,7 @@
                       (pathify built-vector v)
                       [[built-vector (pr-str v)]])))))
 
-(defn unkeyify
+(defn- unkeyify
   "Takes a base-key and a map of entries on format
   {com.example:a 1
   com.example:nested:c 2}
@@ -91,45 +92,42 @@
 ;; ----------------------------------------------------------------
 
 
-;; Put functions
+;; Put-functions
 ;; ----------------------------------------------------------------
 
-(defn put-key
+(defn put-key!
   "Updates a particular key stored in local storage.
-  For example, (put \"com.test\" [:foo :bar] \"Hello World!\")
+  For example, (put-key! \"com.test\" [:foo :bar] \"Hello World!\")
   will update the key com.test:foo:bar to have value \"Hello world\"
   in local storage."
   [base-key path-vector value]
   (let [the-key (to-string base-key path-vector)]
     (js/localStorage.setItem the-key value)))
 
-(defn put-all
+(defn put-all!
   "Stores a collection of path vectors in local storage.
   The path vectors should be on format:
-  ([[\"com.example\" :a] 1]
-  [[\"com.example\" :b :c] 2]
-  [[\"com.example\" :b :d] 3])"
+  ([[:a] 1]
+  [[:b :c] 2]
+  [[:b :d] 3])"
   [base-key path-vectors]
-  (let [put (partial put-key base-key)]
+  (let [put (partial put-key! base-key)]
     (doall
       (map #(apply put %) path-vectors))))
 
-(defn put-state
+(defn put-state!
   "Takes an atom state and stores it in local storage."
   [base-key state]
-  (put-all base-key (pathify [] state)))
+  (put-all! base-key (pathify [] state)))
+
+(defn put-atom!
+  "Takes an atom and stores the state it contains in local storage."
+  [base-key an-atom]
+  (put-state! base-key @an-atom))
 
 
-;; Get functions
+;; Get-functions
 ;; ----------------------------------------------------------------
-
-(defn- get-by-string [path-string]
-  "Get the value associated with the given path-string."
-  (aget js/localStorage path-string))
-
-(defn get-by-path [base-key path-vector]
-  "Get the value associated with the specified base-key"
-  (get-by-string (to-string base-key path-vector)))
 
 (defn- filter-our-keys
   "From a list of all keys, return a list with the keys that
@@ -137,6 +135,14 @@
   [base-key all-keys]
   (let [base-pattern (re-pattern (str "^" base-key))]
     (filter #(re-find base-pattern %) all-keys)))
+
+(defn- get-by-string [path-string]
+  "Get the value associated with the given path-string."
+  (aget js/localStorage path-string))
+
+(defn get-key [base-key path-vector]
+  "Get the value associated with the specified base-key"
+  (get-by-string (to-string base-key path-vector)))
 
 (defn get-all
   "Get all localStorage entries beginning with the given base-key."
@@ -146,22 +152,27 @@
         all-data (reduce #(assoc %1 %2 (get-by-string %2)) {} our-keys)]
     (unkeyify base-key all-data)))
 
+(defn get-atom!
+  "Get stored state from local storage and reset the given atom with it."
+  [base-key an-atom]
+  (clojure.core/reset! an-atom (get-all base-key)))
 
-;; Remove functions
+
+;; Remove-functions
 ;; ----------------------------------------------------------------
-(defn remove-from-ls
+(defn remove-key!!
   "Removes a value from local storage."
   [base-key path-vector]
   (let [the-key (to-string base-key path-vector)]
     (js/localStorage.removeItem the-key)))
 
-(defn remove-all
+(defn remove-many!
   "Remove all keys that belonging to the given base-key
-  from local storage"
+  from local storage."
   [base-key path-vectors]
   (let [remove (partial remove base-key)]
     (doall
-      (map #(apply remove-from-ls %) path-vectors))))
+      (map #(apply remove-key!! %) path-vectors))))
 
 
 
@@ -179,12 +190,6 @@
 
 
 ;; The actual API
-(defn reset-to-ls!
-  "Sets the state of an atom to be that of the state
-  retrieved from local storage."
-  [base-key state-atom]
-  (clojure.core/reset! state-atom (get-all base-key)))
-
 (defn keep-updated!
   "Updates local storage with all changes made to an atom.
   Call with true as third arg to switch on logging."
@@ -198,7 +203,7 @@
                       removed       (pathify [] (first the-diff))]
                   (when-not (empty? added)
                     (when log-updates (js/console.log "Updating in localStorage" (added-to-strings added)))
-                    (put-all base-key added))
+                    (put-all! base-key added))
                   (when-not (empty? removed)
                     (when log-updates (js/console.log "Removing in localStorage" (removed-to-strings removed)))
-                    (remove-all base-key removed)))))))
+                    (remove-many! base-key removed)))))))
