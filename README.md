@@ -105,7 +105,8 @@ Takes the first value from each collection, then applies the function f to them,
 ```
 Updates a particular key stored in local storage. For example, 
 
-```clojure (put-key! "com.example.my-atom" [:foo :bar] "Hello World!")``` 
+```clojure 
+(put-key! "com.example.my-atom" [:foo :bar] "Hello World!")``` 
 
 will update the key ```"com.test:foo:bar"``` to have value ```"Hello world"``` in local storage.
 
