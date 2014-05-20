@@ -8,7 +8,7 @@ This is why we should try to keep the state separate from the rest of the code.
 
 
 ## Purpose
-The purpose of Plato is to store and retrieve the state of an atom to (and from) Local Storage, automatically or, by varying degrees, manually.
+The purpose of Plato is to store and retrieve the state of an atom to (and from) Local Storage, automatically or, if so desired, manually.
 
 This library grew out of the need to keep storage of application state separate from the application logic. I noticed that I interspersed my application logic with a lot of storage and retrieval from local storage, a task that is in actuality orthogonal to the reasoning happening in the application logic functions. Therefore, those functions were extracted and put in a separate library.
 
