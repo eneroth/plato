@@ -227,6 +227,8 @@ Updates local storage with all changes made to an atom. Call with ```true``` as 
 ```
 Takes a map representing an old state, and a map representing a new state and returns a vector representing the difference between the two. The first item in the vector details what has been removed and the second what has been added or changed.
 
+As opposed to [clojure.data/diff](http://clojuredocs.org/clojure_core/clojure.data/diff), this diffing algorithm considers everything that is not a map to be a value. This is in order to prepare the data for Local Storage, which is just a simple string based key-value store. 
+
 
 ## License
 
