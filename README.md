@@ -89,14 +89,6 @@ For example,
 
 ## Full function list
 
-### Diffing
-
-**diff-states**
-```clojure
-(diff-states old-state new-state)
-```
-Takes a map representing an old state, and a map representing a new state and returns a vector representing the difference between the two. The first item in the vector details what has been removed and the second what has been added or changed.
-
 ### Putting
 
 **put-key!**
@@ -222,7 +214,13 @@ Updates local storage with all changes made to an atom. Call with ```true``` as 
 (keep-updated! "com.example.my-atom" my-atom)
 (keep-updated! "com.example.my-atom" my-atom true) ;; Console logging turned on
 ```
+### Diffing
 
+**diff-states**
+```clojure
+(diff-states old-state new-state)
+```
+Takes a map representing an old state, and a map representing a new state and returns a vector representing the difference between the two. The first item in the vector details what has been removed and the second what has been added or changed.
 
 
 ## License
