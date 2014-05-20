@@ -95,7 +95,7 @@ For example,
 ```clojure
 (diff-states old-state new-state)
 ```
-Takes the first value from each collection, then applies the function f to them, with col1 being the first argument to the function.
+Takes a map representing an old state, and a map representing a new state and returns a vector representing the difference between the two. The first item in the vector details what has been removed and the second what has been added or changed.
 
 ### Putting
 
