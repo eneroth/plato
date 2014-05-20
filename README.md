@@ -4,7 +4,7 @@
 > 
 > *Plato*
 
-This is why I try to keep the state separate from the rest of the code.
+This is why we should try to keep the state separate from the rest of the code.
 
 
 ## Purpose
