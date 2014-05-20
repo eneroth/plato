@@ -103,13 +103,19 @@ Takes the first value from each collection, then applies the function f to them,
 ```clojure
 (put-key! base-key path-vectors)
 ```
-Updates a particular key stored in local storage. For example, ```clojure (put-key! "com.example.my-atom" [:foo :bar] "Hello World!")``` will update the key ```"com.test:foo:bar"``` to have value ```"Hello world"``` in local storage.
+Updates a particular key stored in local storage. For example, 
+
+```clojure (put-key! "com.example.my-atom" [:foo :bar] "Hello World!")``` 
+
+will update the key ```"com.test:foo:bar"``` to have value ```"Hello world"``` in local storage.
 
 **put-all!**
 ```clojure
 (put-all! base-key path-vectors)
 ```
+
 Stores a collection of path vectors in local storage. The path vectors should be on format:
+
 ```clojure
 [[:a :b :c] 1]```
   
