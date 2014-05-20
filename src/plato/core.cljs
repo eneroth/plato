@@ -4,6 +4,7 @@
 
 
 
+
 ;; Diffing algorithm.
 ;; Please improve and/or benchmark!
 ;; ----------------------------------------------------------------
@@ -104,7 +105,7 @@
   (let [the-key (to-string base-key path-vector)]
     (js/localStorage.setItem the-key value)))
 
-(defn put-all!
+(defn put-many!
   "Stores a collection of path vectors in local storage.
   The path vectors should be on format:
   ([[:a] 1]
@@ -118,7 +119,7 @@
 (defn put-state!
   "Takes an atom state and stores it in local storage."
   [base-key state]
-  (put-all! base-key (pathify [] state)))
+  (put-many! base-key (pathify [] state)))
 
 (defn put-atom!
   "Takes an atom and stores the state it contains in local storage."
@@ -203,7 +204,7 @@
                       removed       (pathify [] (first the-diff))]
                   (when-not (empty? added)
                     (when log-updates (js/console.log "Updating in localStorage" (added-to-strings added)))
-                    (put-all! base-key added))
+                    (put-many! base-key added))
                   (when-not (empty? removed)
                     (when log-updates (js/console.log "Removing in localStorage" (removed-to-strings removed)))
                     (remove-many! base-key removed)))))))
