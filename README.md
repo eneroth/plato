@@ -16,9 +16,9 @@ Plato parses arbitrarily nested hash-maps in atoms and constructs local storage 
 
 For example, given the ```base-key``` (base-keys are explained below) "myproject", the hash-map ```{:a 1 :b {:c 2 :d 3}``` is stored in local storage as:
 ```
-  Key: myproject:a,   value: 1
-  Key: myproject:b:c, value: 2
-  Key: myproject:b:d, value: 3
+  Key: "myproject:a",   value: "1"
+  Key: "myproject:b:c", value: "2"
+  Key: "myproject:b:d", value: "3"
 ```
 
 Due to limitations in the local storage API, everything except hash-maps is stored as strings. Hash-maps are stored in the formatting of the keys, as shown above.
