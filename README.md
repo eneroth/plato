@@ -103,9 +103,9 @@ Updates a particular key stored in local storage. For example,
 
 will update the key ```"com.test:foo:bar"``` to have value ```"Hello world"``` in local storage.
 
-**put-all!**
+**put-many!**
 ```clojure
-(put-all! base-key path-vectors)
+(put-many! base-key path-vectors)
 ```
 
 Stores a collection of path vectors in local storage. The path vectors should be on format:
@@ -121,7 +121,7 @@ For example,
                    [[:b :c] 2]
                    [[:b :d] 3]])
 
-(put-all! "com.example.my-atom" path-vectors)
+(put-many! "com.example.my-atom" path-vectors)
 ```
 
 **put-state!**
