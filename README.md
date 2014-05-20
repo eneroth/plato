@@ -173,7 +173,8 @@ Get the value associated with the specified base-key from local storage. For exa
 Get all localStorage entries beginning with the given base-key. For example,
 
 ```clojure
-(get-key "com.example.my-atom")```
+(get-key "com.example.my-atom")
+```
 
 
 **get-atom!**
