@@ -43,7 +43,7 @@ If you're only using a single atom, and wish to omit the base-key, you can use `
 ```
 
 ### Storing and restoring state
-Two of the main functions in Plato is ```keep-updated!``` and ```get-atom!```. They are used to store and restore the state of an atom, respectively. There are also a number of functions that can be used to store data more manually. In particular, you *may* need to run ```put-atom!``` once before running ```keep-updated!```, if you have state in the atom that is not currently in Local Storage. This is due to the fact that ```keep-updated!``` works incrementally, and only will persist the *changes* made to the atom.
+Two of the main functions in Plato are ```keep-updated!``` and ```get-atom!```. They are used to store and restore the state of an atom, respectively. There are also a number of functions that can be used to store data more manually. In particular, you *may* need to run ```put-atom!``` once before running ```keep-updated!```, if you have state in the atom that is not currently in Local Storage. This is due to the fact that ```keep-updated!``` works incrementally, and only will persist the *changes* made to the atom.
 
 
 #### Storing state
