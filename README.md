@@ -48,7 +48,7 @@ Two of the main functions in Plato are ```keep-updated!``` and ```get-atom!```. 
 
 #### Storing state
 
-```keep-updated!``` adds a watch to an atom. This watch reacts to changes in the atom and updates Local Storage accordingly. Only that parts that are changed will be updated. The size of the state held in the atom is irrelevant, only the parts that are changed will be written to Local Storage. If large parts of the state held in the atom is changed, then a larger number of writes to Local Storage will take place.
+```keep-updated!``` adds a watch to an atom. This watch reacts to changes in the atom and updates Local Storage accordingly. Only those parts that are changed will be updated. The size of the state held in the atom is irrelevant, only the parts that are changed will be written to Local Storage. If large parts of the state held in the atom is changed, then a larger number of writes to Local Storage will take place.
 
 ```clojure
 (plato/keep-updated! base-key an-atom)
