@@ -8,7 +8,7 @@ This is why we should try to keep the state separate from the rest of the code.
 
 
 ## Purpose
-The purpose of Plato is to store and retrieve the state of an atom to (and from) Local Storage, automatically or, if so desired, manually.
+The purpose of Plato is to store and restore data to (and from) Local Storage. There are also a couple of quite useful functions for persisting state held within atoms.
 
 This library grew out of the need to keep storage of application state separate from the application logic. I noticed that I interspersed my application logic with a lot of storage related function calls. Storage and persistence is arguably orthogonal to application logic, and therefore those functions were extracted and put in a separate library.
 
@@ -87,7 +87,7 @@ For example,
 
 ```clojure
 (def my-atom (atom {:coords {:x 0
-                             :y 0}}))
+                              :y 0}}))
 
 (plato/get-atom! "myproject" my-atom) ;; Will overwrite current atom content
 ```
