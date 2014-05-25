@@ -171,7 +171,7 @@ Get the value associated with the specified base-key from local storage. For exa
 Get all localStorage entries beginning with the given base-key. For example,
 
 ```clojure
-(restore "com.example.my-state")
+(restore-state "com.example.my-state")
 ```
 
 
