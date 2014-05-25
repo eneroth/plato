@@ -1,4 +1,4 @@
-(defproject plato "0.1.9"
+(defproject plato "0.1.10"
   :description "Persists state to local storage."
   :url "https://github.com/eneroth/plato"
   :license {:name "Eclipse Public License"

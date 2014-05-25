@@ -26,7 +26,7 @@ Due to limitations in the local storage API, everything except hash-maps is stor
 ## Usage
 Add the following to your project.clj dependencies:
 ```clojure
-[plato "0.1.9"]
+[plato "0.1.10"]
 ```
 
 Almost all Plato functions take a ```base-key``` as the first argument. The reason for this is to make sure that there are no collisions between keys stored in local storage. Make sure you use a different base-key for every atom you intend to persist.
@@ -192,7 +192,7 @@ Get stored state from local storage and reset the given atom with it. For exampl
 (erase! base-key path-vector)
 ```
 
-Removes a key and corresponding value from local storage. For example,
+Remove a key and corresponding value from local storage. For example,
 
 ```clojure
 (erase! "com.example.my-state" [:a :b :c])
@@ -202,10 +202,19 @@ Removes a key and corresponding value from local storage. For example,
 ```clojure
 (erase-many! base-key path-vectors)
 ```
-Remove all keys that belonging to the given base-key from local storage. For example,
+Remove all entries as specified by path vectors, belonging to the given base-key, from local storage. For example,
 ```clojure
 (erase-many! "com.example.my-atom" [[:a :b :c]
                                      [:d :e]])
+```
+
+**erase-all!**
+```clojure
+(erase-aöö! base-key)
+```
+Remove all keys belonging to the given base-key from local storage. For example,
+```clojure
+(erase-all! "com.example.my-atom")
 ```
 
 ### Maintaining state in sync

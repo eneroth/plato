@@ -147,6 +147,10 @@
   "Get the value associated with the given path-string."
   (aget js/localStorage path-string))
 
+(defn- get-our-keys [base-key]
+  (let [all-keys (js/Object.keys js/localStorage)]
+    (filter-our-keys base-key all-keys)))
+
 (defn restore [base-key path-vector]
   "Get the value associated with the specified base-key"
   (get-by-string (to-string base-key path-vector)))
@@ -154,8 +158,7 @@
 (defn restore-state
   "Get all localStorage entries beginning with the given base-key."
   [base-key]
-  (let [all-keys (js/Object.keys js/localStorage)
-        our-keys (filter-our-keys base-key all-keys)
+  (let [our-keys (get-our-keys base-key)
         all-data (reduce #(assoc %1 %2 (get-by-string %2)) {} our-keys)]
     (unkeyify base-key all-data)))
 
@@ -167,11 +170,16 @@
 
 ;; Remove-functions
 ;; ----------------------------------------------------------------
+(defn- erase-string!
+  "Erase an entry from local storage given the supplied string."
+  [a-string]
+  (js/localStorage.removeItem a-string))
+
 (defn erase!
   "Removes a value from local storage."
   [base-key path-vector]
   (let [the-key (to-string base-key path-vector)]
-    (js/localStorage.removeItem the-key)))
+    (erase-string! the-key)))
 
 (defn erase-many!
   "Remove all keys that belonging to the given base-key
@@ -181,7 +189,11 @@
     (doall
       (map #(apply erase! %) path-vectors))))
 
-
+(defn erase-all!
+  "Remove all data belonging to the supplied base-key."
+  [base-key]
+  (doall
+    (map erase-string! (get-our-keys base-key))))
 
 ;; Functions for automatic state synchronisation
 ;; ----------------------------------------------------------------
