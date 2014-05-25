@@ -222,7 +222,7 @@ Updates local storage with all changes made to an atom. Call with ```true``` as 
 ```
 
 Example of logging output when logging is turned on,
-```clojure
+```
 Updating in localStorage [:coords :x] to 561
 Updating in localStorage [:coords :y] to 174, [:coords :x] to 570 
 ```
