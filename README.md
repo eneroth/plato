@@ -39,11 +39,11 @@ If you're only using a single atom, and wish to omit the base-key, you can use `
 
 (def base-key "myproject")
 
-(def put-atom! (partial plato/put-atom! base-key))
+(def store-atom! (partial plato/store-atom! base-key))
 ```
 
 ### Storing and restoring state
-Two of the main functions in Plato are ```keep-updated!``` and ```get-and-reset!```. They are used to store and restore the state of an atom, respectively. There are also a number of functions that can be used to store data more manually. In particular, you *may* need to run ```put-atom!``` once before running ```keep-updated!```, if you have state in the atom that is not currently in Local Storage. This is due to the fact that ```keep-updated!``` works incrementally, and only will persist the *changes* made to the atom.
+Two of the main functions in Plato are ```keep-updated!``` and ```restore-atom!```. They are used to store and restore the state of an atom, respectively. There are also a number of functions that can be used to store data more manually. In particular, you *may* need to run ```store-atom!``` once before running ```keep-updated!```, if you have state in the atom that is not currently in Local Storage. This is due to the fact that ```keep-updated!``` works incrementally, and only will persist the *changes* made to the atom.
 
 
 #### Storing state
@@ -63,7 +63,7 @@ If you wish to see when and what it is being written to local storage, you can s
 (plato/keep-updated! "myproject" my-atom true)
 ```
 
-```keep-updated!``` will only write to local storage once the atom changes, so if you want to store everything currently in the atom, you have to use ```put-atom!```. Something like this would do,
+```keep-updated!``` will only write to local storage once the atom changes, so if you want to store everything currently in the atom, you have to use ```store-atom!```. Something like this would do,
 
 ```clojure
 (def my-atom (atom {:coords {:x 0
@@ -71,17 +71,17 @@ If you wish to see when and what it is being written to local storage, you can s
                              
 (def my-base-key "myproject")                       
 
-(plato/put-atom! my-base-key my-atom)
+(plato/store-atom! my-base-key my-atom)
 
 (plato/keep-updated! my-base-key my-atom true)
 ```
 
 
 #### Restoring state
-```get-and-reset!``` resets the atom to the state stored in Local Storage, given that there is any.
+```restore-atom!``` resets the atom to the state stored in Local Storage, given that there is any.
 
 ```clojure
-(plato/get-and-reset! base-key an-atom)
+(plato/restore-atom! base-key an-atom)
 ```
 
 For example,
@@ -90,28 +90,28 @@ For example,
 (def my-atom (atom {:coords {:x 0
                               :y 0}}))
 
-(plato/get-and-reset! "myproject" my-atom) ;; Will overwrite current atom content
+(plato/restore-atom! "myproject" my-atom) ;; Will overwrite current atom content
 ```
 
 ## Full function list
 
-### Putting
+### Storing
 
-**put-key!**
+**store!**
 ```clojure
-(put-key! base-key path-vector value)
+(store! base-key path-vector value)
 ```
 Updates a particular key stored in local storage. For example, 
 
 ```clojure 
-(put-key! "com.example.my-atom" [:foo :bar] "Hello World!")
+(store! "com.example.my-atom" [:foo :bar] "Hello World!")
 ``` 
 
 will update the key ```"com.test:foo:bar"``` to have value ```"Hello world"``` in local storage.
 
-**put-many!**
+**store-many!**
 ```clojure
-(put-many! base-key path-vectors)
+(store-many! base-key path-vectors)
 ```
 
 Stores a collection of path vectors in local storage. The path vectors should be on format:
@@ -127,88 +127,88 @@ For example,
                    [[:b :c] 2]
                    [[:b :d] 3]])
 
-(put-many! "com.example.my-atom" path-vectors)
+(store-many! "com.example.my-atom" path-vectors)
 ```
 
-**put-state!**
+**store-state!**
 ```clojure
-(put-state! base-key state)
+(store-state! base-key state)
 ```
 Takes an atom state and stores it in local storage. For example,
 
 ```clojure
-(put-state! "com.example.my-atom" @my-atom)
+(store-state! "com.example.my-atom" @my-atom)
 ```
 
-**put-atom!**
+**store-atom!**
 ```clojure
-(put-state! base-key an-atom)
+(store-state! base-key an-atom)
 ```
-Same as ```put-state!```, but it does the ```deref``` for you. For example,
+Same as ```store-state!```, but it does the ```deref``` for you. For example,
 
 ```clojure
-(put-state! "com.example.my-atom" my-atom)
+(store-atom! "com.example.my-atom" my-atom)
 ```
 
-### Getting
+### Retrieving and restoring
 
-**get-key**
+**retrieve**
 ```clojure
-(get-key base-key path-vector)
+(retrieve base-key path-vector)
 ```
 
 Get the value associated with the specified base-key from local storage. For example,
 
 ```clojure
-(get-key "com.example.my-atom" [:a :b :c])
+(retrieve "com.example.my-atom" [:a :b :c])
 ```
 
-**get-all**
+**retrieve-all**
 ```clojure
-(get-all base-key)
+(retrieve-all base-key)
 ```
 
 Get all localStorage entries beginning with the given base-key. For example,
 
 ```clojure
-(get-key "com.example.my-atom")
+(retrieve "com.example.my-atom")
 ```
 
 
-**get-and-reset!**
+**restore-atom!**
 ```clojure
-(get-and-reset! base-key an-atom)
+(restore-atom! base-key an-atom)
 ```
 
 Get stored state from local storage and reset the given atom with it. For example,
 
 ```clojure
-(get-and-reset! "com.example.my-atom" my-atom)
+(restore-atom! "com.example.my-atom" my-atom)
 ```
 
-### Removing
-**remove-key!**
+### Erasing
+**erase!**
 ```clojure
-(remove-key! base-key path-vector)
+(erase! base-key path-vector)
 ```
 
 Removes a key and corresponding value from local storage. For example,
 
 ```clojure
-(remove-key! "com.example.my-atom" [:a :b :c])
+(erase! "com.example.my-atom" [:a :b :c])
 ```
 
-**remove-many!**
+**erase-many!**
 ```clojure
-(remove-many! base-key path-vectors)
+(erase-many! base-key path-vectors)
 ```
 Remove all keys that belonging to the given base-key from local storage. For example,
 ```clojure
-(remove-many! "com.example.my-atom" [[:a :b :c]
+(erase-many! "com.example.my-atom" [[:a :b :c]
                                      [:d :e]])
 ```
 
-### Maintaing state in sync
+### Maintaining state in sync
 **keep-updated!**
 ```clojure
 (keep-updated! base-key an-atom log-update)
@@ -220,6 +220,14 @@ Updates local storage with all changes made to an atom. Call with ```true``` as 
 (keep-updated! "com.example.my-atom" my-atom)
 (keep-updated! "com.example.my-atom" my-atom true) ;; Console logging turned on
 ```
+
+Example of logging output when logging is turned on,
+```clojure
+Updating in localStorage [:coords :x] to 561
+Updating in localStorage [:coords :y] to 174, [:coords :x] to 570 
+```
+
+
 ### Diffing
 
 **diff-states**
