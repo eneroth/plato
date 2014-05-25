@@ -210,7 +210,7 @@ Remove all entries as specified by path vectors, belonging to the given base-key
 
 **erase-all!**
 ```clojure
-(erase-aöö! base-key)
+(erase-all! base-key)
 ```
 Remove all keys belonging to the given base-key from local storage. For example,
 ```clojure
