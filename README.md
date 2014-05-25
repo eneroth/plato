@@ -195,7 +195,7 @@ Get stored state from local storage and reset the given atom with it. For exampl
 Removes a key and corresponding value from local storage. For example,
 
 ```clojure
-(erase! "com.example.my-atom" [:a :b :c])
+(erase! "com.example.my-state" [:a :b :c])
 ```
 
 **erase-many!**
