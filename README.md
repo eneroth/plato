@@ -142,7 +142,7 @@ Takes a hash-map and stores it in local storage. For example,
 
 **store-atom!**
 ```clojure
-(store-state! base-key an-atom)
+(store-atom! base-key an-atom)
 ```
 Stores the contents of an atom (typically a hash-map) in local storage. For example,
 
@@ -171,7 +171,7 @@ Get the value associated with the specified base-key from local storage. For exa
 Get all localStorage entries beginning with the given base-key. For example,
 
 ```clojure
-(restore "com.example.my-atom")
+(restore "com.example.my-state")
 ```
 
 
