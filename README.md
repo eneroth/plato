@@ -134,17 +134,17 @@ For example,
 ```clojure
 (store-state! base-key state)
 ```
-Takes an atom state and stores it in local storage. For example,
+Takes a hash-map and stores it in local storage. For example,
 
 ```clojure
-(store-state! "com.example.my-atom" @my-atom)
+(store-state! "com.example.my-state" {:a {:b {:c 1}}})
 ```
 
 **store-atom!**
 ```clojure
 (store-state! base-key an-atom)
 ```
-Same as ```store-state!```, but it does the ```deref``` for you. For example,
+Stores the contents of an atom (typically a hash-map) in local storage. For example,
 
 ```clojure
 (store-atom! "com.example.my-atom" my-atom)
@@ -152,26 +152,26 @@ Same as ```store-state!```, but it does the ```deref``` for you. For example,
 
 ### Retrieving and restoring
 
-**retrieve**
+**restore**
 ```clojure
-(retrieve base-key path-vector)
+(restore base-key path-vector)
 ```
 
 Get the value associated with the specified base-key from local storage. For example,
 
 ```clojure
-(retrieve "com.example.my-atom" [:a :b :c])
+(restore "com.example.my-atom" [:a :b :c])
 ```
 
-**retrieve-all**
+**restore-state**
 ```clojure
-(retrieve-all base-key)
+(restore-state base-key)
 ```
 
 Get all localStorage entries beginning with the given base-key. For example,
 
 ```clojure
-(retrieve "com.example.my-atom")
+(restore "com.example.my-atom")
 ```
 
 

@@ -123,7 +123,7 @@
       (map #(apply put %) path-vectors))))
 
 (defn store-state!
-  "Takes an atom state and stores it in local storage."
+  "Takes hash-map and stores it in local storage."
   [base-key state]
   (store-many! base-key (pathify [] state)))
 
@@ -147,11 +147,11 @@
   "Get the value associated with the given path-string."
   (aget js/localStorage path-string))
 
-(defn retrieve [base-key path-vector]
+(defn restore [base-key path-vector]
   "Get the value associated with the specified base-key"
   (get-by-string (to-string base-key path-vector)))
 
-(defn retrieve-all
+(defn restore-state
   "Get all localStorage entries beginning with the given base-key."
   [base-key]
   (let [all-keys (js/Object.keys js/localStorage)
@@ -162,7 +162,7 @@
 (defn restore-atom!
   "Get stored state from local storage and reset the given atom with it."
   [base-key an-atom]
-  (clojure.core/reset! an-atom (retrieve-all base-key)))
+  (clojure.core/reset! an-atom (restore-state base-key)))
 
 
 ;; Remove-functions
