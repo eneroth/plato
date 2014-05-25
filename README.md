@@ -43,7 +43,7 @@ If you're only using a single atom, and wish to omit the base-key, you can use `
 ```
 
 ### Storing and restoring state
-Two of the main functions in Plato are ```keep-updated!``` and ```get-atom!```. They are used to store and restore the state of an atom, respectively. There are also a number of functions that can be used to store data more manually. In particular, you *may* need to run ```put-atom!``` once before running ```keep-updated!```, if you have state in the atom that is not currently in Local Storage. This is due to the fact that ```keep-updated!``` works incrementally, and only will persist the *changes* made to the atom.
+Two of the main functions in Plato are ```keep-updated!``` and ```get-and-reset!```. They are used to store and restore the state of an atom, respectively. There are also a number of functions that can be used to store data more manually. In particular, you *may* need to run ```put-atom!``` once before running ```keep-updated!```, if you have state in the atom that is not currently in Local Storage. This is due to the fact that ```keep-updated!``` works incrementally, and only will persist the *changes* made to the atom.
 
 
 #### Storing state
@@ -78,10 +78,10 @@ If you wish to see when and what it is being written to local storage, you can s
 
 
 #### Restoring state
-```get-atom!``` resets the atom to the state stored in Local Storage, given that there is any.
+```get-and-reset!``` resets the atom to the state stored in Local Storage, given that there is any.
 
 ```clojure
-(plato/get-atom! base-key an-atom)
+(plato/get-and-reset! base-key an-atom)
 ```
 
 For example,
@@ -90,7 +90,7 @@ For example,
 (def my-atom (atom {:coords {:x 0
                               :y 0}}))
 
-(plato/get-atom! "myproject" my-atom) ;; Will overwrite current atom content
+(plato/get-and-reset! "myproject" my-atom) ;; Will overwrite current atom content
 ```
 
 ## Full function list
@@ -175,15 +175,15 @@ Get all localStorage entries beginning with the given base-key. For example,
 ```
 
 
-**get-atom!**
+**get-and-reset!**
 ```clojure
-(get-atom! base-key an-atom)
+(get-and-reset! base-key an-atom)
 ```
 
 Get stored state from local storage and reset the given atom with it. For example,
 
 ```clojure
-(get-atom! "com.example.my-atom" my-atom)
+(get-and-reset! "com.example.my-atom" my-atom)
 ```
 
 ### Removing

@@ -3,7 +3,6 @@
             [cljs.reader :refer [read-string]]))
 
 
-
 ;; Diffing algorithm.
 ;; Please improve and/or benchmark!
 ;; ----------------------------------------------------------------
@@ -32,6 +31,14 @@
             new-vals    (map-two assoc-nil all-keys (map second substates))]
         [(apply merge old-vals) 
          (apply merge new-vals)]))))
+
+(log-str (diff-states {:a 1 
+                       :b {:c 2 :d [1 2 3]} 
+                       :e "same" 
+                       :f "removed"} 
+                      {:a 2 
+                       :b {:c 3 :d [4 5 6]} 
+                       :e "same"}))
 
 
 ;; Key mutation
@@ -152,7 +159,7 @@
         all-data (reduce #(assoc %1 %2 (get-by-string %2)) {} our-keys)]
     (unkeyify base-key all-data)))
 
-(defn get-atom!
+(defn get-and-reset!
   "Get stored state from local storage and reset the given atom with it."
   [base-key an-atom]
   (clojure.core/reset! an-atom (get-all base-key)))
