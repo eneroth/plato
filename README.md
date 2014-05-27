@@ -107,7 +107,7 @@ Updates a particular key stored in local storage. For example,
 (store! "com.example.my-atom" [:foo :bar] "Hello World!")
 ``` 
 
-will update the key ```"com.example.my-atom"``` to have value ```"Hello World!"``` in local storage.
+will update the key ```"com.example.my-atom:foo:bar"``` to have value ```"Hello World!"``` in local storage.
 
 **store-many!**
 ```clojure
