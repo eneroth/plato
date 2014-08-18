@@ -32,14 +32,6 @@
         [(apply merge old-vals) 
          (apply merge new-vals)]))))
 
-(log-str (diff-states {:a 1 
-                       :b {:c 2 :d [1 2 3]} 
-                       :e "same" 
-                       :f "removed"} 
-                      {:a 2 
-                       :b {:c 3 :d [4 5 6]} 
-                       :e "same"}))
-
 
 ;; Key mutation
 ;; ----------------------------------------------------------------
