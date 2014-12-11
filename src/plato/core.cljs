@@ -6,12 +6,6 @@
 ;; Diffing algorithm.
 ;; Please improve and/or benchmark!
 ;; ----------------------------------------------------------------
-
-(defn- map-two [f col1 col2]
-  "Takes the first value from each collection, then applies the 
-  function f to them, with col1 being the first argument to the function."
-  (map (fn [x] (apply f x)) (partition 2 (interleave col1 col2))))
-
 (defn- assoc-nil [x y]
   "Associates x with y, given that y is not nil."
   (when-not (nil? y) (assoc {} x y)))
@@ -27,8 +21,8 @@
       [(when (nil? new-state) old-state) new-state]
       (let [all-keys    (-> (into (keys old-state) (keys new-state)) set vec)
             substates   (map #(diff-states (get old-state %) (get new-state %)) all-keys)
-            old-vals    (map-two assoc-nil all-keys (map first substates))
-            new-vals    (map-two assoc-nil all-keys (map second substates))]
+            old-vals    (map assoc-nil all-keys (map first substates))
+            new-vals    (map assoc-nil all-keys (map second substates))]
         [(apply merge old-vals) 
          (apply merge new-vals)]))))
 
